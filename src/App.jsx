@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Gift, Download, Check, X, Sparkles } from 'lucide-react';
+import { Mail, Gift, Check, X, Sparkles } from 'lucide-react';
+
+// 引入你放在 assets 資料夾內的圖片
+// (如果你的副檔名是 .png，請把這裡的 .jpg 改成 .png)
+import page1Img from './assets/page1.jpg';
+import page2Img from './assets/page2.jpg';
 
 export default function App() {
   const [isOpened, setIsOpened] = useState(false);
@@ -12,7 +17,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center relative px-4 font-sans selection:bg-pink-200">
+    <div className="min-h-screen flex items-center justify-center relative px-4 font-sans selection:bg-pink-200 py-10">
       <div className="snow-bg" />
 
       <AnimatePresence mode="wait">
@@ -44,11 +49,9 @@ export default function App() {
 
             {/* 精緻質感信封 */}
             <div className="relative w-80 h-52 bg-gradient-to-br from-christmas-red to-[#6B1515] rounded-xl shadow-2xl overflow-hidden group-hover:shadow-[0_20px_50px_rgba(139,28,28,0.3)] transition-shadow duration-500">
-              {/* 信封折線視覺裝飾 */}
               <div className="absolute inset-0 opacity-20 border-[1px] border-white/40 m-2 rounded-lg" />
               <div className="absolute top-0 w-0 h-0 border-l-[160px] border-r-[160px] border-t-[100px] border-l-transparent border-r-transparent border-t-white/10" />
               
-              {/* 中央封蠟 */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 bg-gradient-to-tr from-yellow-600 to-christmas-gold rounded-full shadow-lg flex items-center justify-center border-2 border-[#AA8529]">
                 <Mail className="text-white w-6 h-6" />
               </div>
@@ -62,13 +65,13 @@ export default function App() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.2 }}
-            className="relative z-20 w-full max-w-lg my-12"
+            className="relative z-20 w-full max-w-lg"
           >
             {/* 毛玻璃卡片主體 */}
-            <div className="bg-white/80 backdrop-blur-xl rounded-[2rem] shadow-[0_30px_60px_rgba(0,0,0,0.08)] border border-white p-6 sm:p-8 overflow-hidden">
+            <div className="bg-white/80 backdrop-blur-xl rounded-[2rem] shadow-[0_30px_60px_rgba(0,0,0,0.08)] border border-white p-4 sm:p-8 overflow-hidden">
               
               {/* 頂部裝飾區塊 */}
-              <div className="text-center mb-8 relative">
+              <div className="text-center mb-6 relative">
                 <div className="w-16 h-16 bg-christmas-pink rounded-2xl mx-auto flex items-center justify-center mb-4 shadow-inner rotate-3">
                   <Gift className="text-christmas-red w-8 h-8" />
                 </div>
@@ -76,20 +79,15 @@ export default function App() {
                 <div className="w-12 h-1 bg-gradient-to-r from-christmas-red to-christmas-pink mx-auto mt-4 rounded-full" />
               </div>
 
-              {/* PDF 預覽區 - 高質感外框 */}
-              <div className="relative w-full h-[55vh] rounded-2xl overflow-hidden shadow-inner border border-stone-200 bg-stone-50 group">
-                <iframe 
-                    src="https://drive.google.com/file/d/1aZd_wTrOQIsAutIK7NmiTUq7Slw6ynWB/preview" 
-                    className="w-full h-full border-0 absolute inset-0"
-                    title="邀請函 PDF"
-                />
-                <a href="https://drive.google.com/file/d/1aZd_wTrOQIsAutIK7NmiTUq7Slw6ynWB/view?usp=sharing" target="_blank" rel="noreferrer"
-                   className="absolute top-4 right-4 bg-white/90 backdrop-blur shadow-md px-3 py-2 rounded-xl text-xs font-bold text-christmas-red flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Download className="w-4 h-4" /> 下載
-                </a>
+              {/* 圖片展示區 (替換原本的 PDF) */}
+              <div className="relative w-full max-h-[60vh] overflow-y-auto rounded-2xl shadow-inner border border-stone-200 bg-stone-50 p-3 sm:p-4 custom-scrollbar">
+                <div className="flex flex-col gap-4">
+                  <img src={page1Img} alt="邀請函第一頁" className="w-full h-auto rounded-xl shadow-sm border border-stone-100" />
+                  <img src={page2Img} alt="邀請函第二頁" className="w-full h-auto rounded-xl shadow-sm border border-stone-100" />
+                </div>
               </div>
 
-              {/* 回覆按鈕群 - 現代 UI 設計 */}
+              {/* 回覆按鈕群 */}
               <div className="mt-8 flex flex-col gap-3">
                 <button onClick={() => handleRSVP('accept')} className="w-full py-4 bg-stone-900 text-white rounded-2xl font-medium shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex justify-center items-center gap-2">
                   <Check className="w-5 h-5 text-christmas-gold" /> 我將準時出席
